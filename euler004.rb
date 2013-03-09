@@ -2,15 +2,16 @@
 
 class Integer
   def factorize
+    return [] if self == 0
     i = 2
     low  = [1]
     high = [self]
-    while(i < high.last)
+    while(i < high.last.abs)
       if (self % i) == 0
         low<< i
         high<< (self / i)
       end
-      i +=1 
+      i += 1 
     end
     (low + high.sort).uniq
   end
@@ -31,16 +32,14 @@ class Array
   end
 end
 
-def has_two_three_digit_factors? num
+def biggest_6_digit_palindrome_with_two_3_digit_factors? num
   yes = false
   factors = num.factorize
   three_digit_factors = factors.get_3_digit_factors
-  puts "#{num}  #{three_digit_factors.inspect}" if three_digit_factors.count > 1
   three_digit_factors.each do |n1|
     three_digit_factors.each do |n2|
       if (n1 != n2) && ((n1 * n2) == num)
         yes = true
-        puts "#{num}  #{three_digit_factors.inspect}"
         break
       end
     end
@@ -49,13 +48,11 @@ def has_two_three_digit_factors? num
   yes
 end
 
-#puts has_two_three_digit_factors? 898989
-
 base_num = 999
 
 (100..999).each do |i|
   palindrome = "#{base_num}#{base_num.to_s.reverse}".to_i
-  if has_two_three_digit_factors?(palindrome)
+  if biggest_6_digit_palindrome_with_two_3_digit_factors?(palindrome)
     puts "Palindrome #{palindrome} is the highest 6 digit palindrome with two three digit factors."
     break
   end
