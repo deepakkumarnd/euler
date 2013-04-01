@@ -2,7 +2,7 @@
 
 class Integer
   def prime?
-    raise StandardError if self < 1
+    raise StandardError if self < 2
     prime = (self % 2 == 0) ? false : true
     if prime
       i = 3
