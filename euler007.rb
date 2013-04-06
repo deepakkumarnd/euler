@@ -2,12 +2,18 @@
 
 class Integer
   def prime?
-    prime = true
-    half = self / 2
-    for i in (2..half)
-      if (self % i) == 0
-        prime = false
-        break
+    raise StandardError if self < 2
+    prime = (self % 2 == 0) ? false : true
+    if prime
+      i = 3
+      limit = self / i
+      while(i <= limit)
+        if (self % i) == 0
+          prime = false
+          break
+        end
+        i += 2
+        limit = self/i
       end
     end
     prime
@@ -15,14 +21,14 @@ class Integer
 end
 
 def nth_prime_number(n)
-  num = 2
-  n.times do
+  num = 3
+  (n).times do
     while(!num.prime?) do
-      num += 1
+      num += 2
     end
-    num += 1
+    num += 2
   end
-  (num - 1)
+  (num - 2)
 end
 
 puts nth_prime_number(10001)
